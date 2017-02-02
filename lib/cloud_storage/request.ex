@@ -7,7 +7,7 @@ defmodule GCloudex.CloudStorage.Request do
   Offers HTTP requests to be used in by the Google Cloud Storage wrapper.
   """
 
-  defmacro __using__(_opts) do 
+  defmacro __using__(_opts) do
     quote do
 
       @endpoint "storage.googleapis.com"
@@ -27,7 +27,7 @@ defmodule GCloudex.CloudStorage.Request do
             {"x-goog-project-id", @project_id},
             {"Authorization", "Bearer #{Auth.get_token_storage(:full_control)}"}
           ],
-          []
+          [recv_timeout: 20_000]
         )
       end
 
@@ -42,7 +42,7 @@ defmodule GCloudex.CloudStorage.Request do
           body,
           headers ++ [{"Authorization",
                        "Bearer #{Auth.get_token_storage(:full_control)}"}],
-          []
+          [recv_timeout: 20_000]
         )
       end
 
@@ -57,14 +57,14 @@ defmodule GCloudex.CloudStorage.Request do
           body,
           headers ++ [{"Authorization",
                        "Bearer #{Auth.get_token_storage(:full_control)}"}],
-          []
+          [recv_timeout: 20_000]
         )
       end
 
       defoverridable [
-        request_service: 0, 
+        request_service: 0,
         request: 3,
-        request: 4, 
+        request: 4,
         request_query: 5
       ]
     end
